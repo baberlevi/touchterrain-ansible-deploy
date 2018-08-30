@@ -1,0 +1,16 @@
+---
+  - name: Include OS Variables
+    include_vars: "{{ ansible_os_family }}.yml"
+
+  - name: Install Apache
+    include: install.yml
+
+  - name: Apache Configuration
+    include: configure.yml
+
+  - name: Configure Apache Vhosts
+    include: vhost.yml
+    when: apache_enable_vhosts is defined and apache_enable_vhosts == true
+
+  - name: Service Configuration
+    include: service.yml

@@ -1,0 +1,27 @@
+---
+#=====
+# Apache Threading and Multi-processing Modules
+#=====
+  - name: Update apache MPM module
+    replace:
+      dest: /etc/httpd/conf.modules.d/00-mpm.conf
+      regexp: "^(LoadModule mpm_prefork_module modules/mod_mpm_prefork.so)$"
+      replace: "#\\1"
+    when: (apache_mpm_event is defined and apache_mpm_event == true) or (apache_mpm_worker is defined and apache_mpm_worker == true)
+    notify: Restart apache
+
+  - name: Update apache MPM module
+    replace:
+      dest: /etc/httpd/conf.modules.d/00-mpm.conf
+      regexp: "^#(LoadModule mpm_worker_module modules/mod_mpm_worker.so)$"
+      replace: "\\1"
+    when: apache_mpm_worker is defined and apache_mpm_worker == true
+    notify: Restart apache
+
+  - name: Update apache MPM module
+    replace:
+      dest: /etc/httpd/conf.modules.d/00-mpm.conf
+      regexp: "^#(LoadModule mpm_event_module modules/mod_mpm_event.so)$"
+      replace: "\\1"
+    when: apache_mpm_event is defined and apache_mpm_event == true
+    notify: Restart apache

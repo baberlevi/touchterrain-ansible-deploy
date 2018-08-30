@@ -1,0 +1,17 @@
+
+        <File "{{ file.regex }}">
+{%      for k,v in file.iteritems() %}
+{%        if k != 'Require' and k != 'path' and k != 'RequireAny' and k != 'RequireAll' %}
+            {{k}} {{v}}
+{%        endif %}
+{%        if k == 'Require' %}
+{%          include "_partial/_require/_require.j2" %}
+{%        endif %}
+{%        if k == 'RequireAny' %}
+{%          include "_partial/_require/_requireany.j2" %}
+{%        endif %}
+{%        if k == 'RequireAll' %}
+{%          include "_partial/_require/_requireall.j2" %}
+{%        endif %}
+{%      endfor %}
+        </File>

@@ -1,0 +1,4 @@
+---
+- src: https://github.com/ISU-Ansible/ansible-firewall.git
+  version: v0.1.1
+  name: ISU-Ansible.firewall

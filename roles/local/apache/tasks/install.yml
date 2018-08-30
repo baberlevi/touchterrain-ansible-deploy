@@ -1,0 +1,22 @@
+---
+  - name: Install Apache stuff
+    yum: name={{ item }} state=present
+    with_flattened:
+      - "{{ apache_packages }}"
+      - "{{ apache_packages_extra }}"
+
+  - name: Make /etc/httpd/bin directory for scripts
+    file:
+      path: "/etc/httpd/bin"
+      state: directory
+
+  - name: Install a2ensite and a2dissite
+    copy:
+      src: "{{ item }}"
+      dest: /etc/httpd/bin
+      owner: root
+      group: root
+      mode: "u=rwx,g=rx,o=rx"
+    with_items:
+      - a2ensite
+      - a2dissite

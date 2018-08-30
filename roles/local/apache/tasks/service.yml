@@ -1,0 +1,6 @@
+---
+  - name: Enable and Start Apache daemon
+    service:
+      name: "{{ apache_daemon }}"
+      state: started
+      enabled: yes

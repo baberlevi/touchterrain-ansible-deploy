@@ -1,0 +1,36 @@
+---
+- name: Make sure directories are created
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ apache_conf_path }}"
+    - "{{ apache_include_path }}"
+    - "{{ apache_sites_available_path }}"
+    - "{{ apache_sites_enabled_path }}"
+
+#=====
+# Apache Configuration
+#=====
+- name: Configure Apache sites-enabled includes
+  lineinfile:
+    dest: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+    regexp: "^(Incl.* sites-enabled.*)$"
+    line: "IncludeOptional sites-enabled/*"
+    state: present
+    validate: '/usr/sbin/httpd -f %s -S'
+  notify: Restart apache
+
+- name: Configure Vhost Ports (Apache 2.2)
+  replace:
+    dest: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+    regexp: "(\nNameVirtualHost [^\n]+)+"
+    replace: "{% for item in apache_listen_ports %}\nNameVirtualHost *:{{ item }}{% endfor %}"
+    validate: '/usr/sbin/httpd -f %s -S'
+  notify: Restart apache
+
+- name: Configure Apache listening Ports
+  replace:
+    dest: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+    regexp: "^(Listen .*)$"
+    replace: "{% for item in apache_listen_ports %}Listen {{ item }}{% endfor %}"
+    validate: '/usr/sbin/httpd -f %s -S'
+  notify: Restart apache

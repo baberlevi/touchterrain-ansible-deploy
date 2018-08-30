@@ -1,0 +1,5 @@
+      <RequireAny>
+{%          for req in v %}
+        Require {{ req.scope }} {{ req.value }}
+{%          endfor %}
+      </RequireAny>

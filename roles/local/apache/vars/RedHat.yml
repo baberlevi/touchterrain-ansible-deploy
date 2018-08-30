@@ -1,0 +1,29 @@
+---
+#=====
+# Apache daemons
+#=====
+apache_daemon: httpd
+www_daemon: "{{ apache_daemon }}"
+
+#=====
+# Apache User/Group
+#=====
+apache_user: apache
+apache_group: apache
+
+#=====
+# Server Root path
+#=====
+apache_server_root: /etc/httpd
+
+#=====
+# Configuration file paths
+#=====
+apache_default_vhost_filename: "{{ apache_sites_enabled_path }}/000-default"
+apache_sites_available_path: "{{ apache_server_root }}/sites-available"
+apache_sites_enabled_path: "{{ apache_server_root }}/sites-enabled"
+apache_sites_ssl_enabled_path: "{{ apache_server_root }}/conf.d/"
+apache_conf_path: "{{ apache_server_root }}/conf"
+apache_conf_file: "{{ apache_conf_path }}/{{ apache_daemon }}.conf"
+apache_include_path: "{{ apache_server_root }}/conf.d"
+apache_document_root: /var/www/html

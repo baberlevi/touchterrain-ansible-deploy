@@ -1,0 +1,68 @@
+---
+#=====
+# Default Ports
+#=====
+apache_listen_ports:
+  - 80
+apache_ssl_listen_ports:
+  - 443
+
+
+#=====
+# Packages
+#=====
+apache_packages:
+  - httpd
+apache_packages_extra: []
+
+
+#=====
+# Enabled mods
+#=====
+apache_mods_enabled: []
+
+
+#=====
+# Vhosts
+#=====
+apache_enable_vhosts: false
+apache_vhosts: []
+#apache_vhosts:
+#  - ServerName: "localhost"
+#    Port: "80"
+#    ServerAdmin: root@localhost
+#    DocumentRoot: "{{ apache_document_root }}"
+#    ErrorLog: /var/log/httpd/localhost-error.log
+#    Directory:
+#      - path: "/var/www/html/local1"
+#        Options: '-Indexes'
+#        AllowOverride: 'none'
+#        Require:
+#          - scope: all
+#            value: denied
+#  - ServerName: "localhost"
+#    Port: "443"
+#    ServerAdmin: root@localhost
+#    DocumentRoot: "{{ apache_document_root }}"
+#    ErrorLog: /var/log/httpd/localhost_ssl-error.log
+#    SSLEngine: 'on'
+#    SSLProtocol: 'all -SSLv2 -SSLv3'
+#    SSLHonorCipherOrder: 'on'
+#    SSLCipherSuite: '"ALL EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"'
+#    SSLCertificateFile: '/etc/pki/tls/certs/localhost.crt'
+#    SSLCertificateKeyFile: '/etc/pki/tls/private/localhost.key'
+#    SSLCertificateChainFile: '/etc/pki/tls/certs/localhost.cer'
+#    SetEnvIf: 'User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0'
+#    Directory:
+#      - path: "/var/www/html/local1"
+#        Options: '-Indexes'
+#        AllowOverride: 'none'
+#        Require:
+#          - scope: all
+#            value: denied
+#    Manual: |
+#                <Directory "/var/www/html/text">
+#                    Options +Indexes
+#                    Require all granted
+#                </Directory>
+#

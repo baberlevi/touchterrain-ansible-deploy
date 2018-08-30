@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+{% for key, value in apache_conf_httpd.iteritems() %}
+{% if key == 'Directory' %}
+    {% include "_directory.j2" with context %}
+{% elif key == 'IfModule' %}
+  {{ value }}
+{% elif key == 'Files' %}
+  {{ value }}
+{% else %}
+  {{ key }} {{ value }}
+{% endif %}
+{% endfor %}

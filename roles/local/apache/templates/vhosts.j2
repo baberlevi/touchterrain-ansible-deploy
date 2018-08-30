@@ -1,0 +1,55 @@
+
+<VirtualHost *:{{ item.Port }}>
+{%  for k,v in item.iteritems() %}
+{%    if k != 'Directory' and k != 'Location' and k != 'Port' and k != 'Files' and k != 'LocationMatch' and k != 'Alias' and k != 'Manual' and k != 'Server' and k != 'ScriptAlias' %}
+    {{k}} {{v}}
+{%    endif %}
+{%  endfor %}
+
+{%  if item.Server is defined %}
+{%    for k1,v1 in item.Server %}
+    {{k1}} {{v1}}
+{%    endfor %}
+{%-  endif %}
+
+{%  if item.Alias is defined %}
+{%    for alias in item.Alias %}
+    Alias {{ alias }}
+{%    endfor %}
+{%-  endif %}
+
+{%  if item.ScriptAlias is defined %}
+{%    for alias in item.ScriptAlias %}
+    ScriptAlias {{ alias }}
+{%    endfor %}
+{%-  endif %}
+
+{%  if item.Directory is defined %}
+{%    for directory in item.Directory %}
+{%      include "_partial/directory.j2" %}
+{%    endfor %}
+{%  endif %}
+
+{%  if item.LocationMatch is defined %}
+{%    for loc in item.LocationMatch %}
+{%      include "_partial/locationmatch.j2" %}
+{%    endfor %}
+{%  endif %}
+
+{%  if item.Location is defined %}
+{%    for location in item.Location %}
+{%      include "_partial/location.j2" %}
+{%    endfor %}
+{%  endif %}
+
+{%  if item.Files is defined %}
+{%    for file in item.Files %}
+{%      include "_partial/file.j2" %}
+{%    endfor %}
+{%  endif %}
+
+{%  if item.Manual is defined %}
+{{    item.Manual }}
+{%  endif %}
+
+</VirtualHost>
